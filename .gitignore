@@ -1,0 +1,4 @@
+*.pyc
+venv/
+*.txt
+mathematics_dataset.egg-info/

@@ -86,9 +86,45 @@ python -m mathematics_dataset.generate --filter=linear_1d
 will generate example (question, answer) pairs for solving linear equations in
 one variable.
 
-We've also included `generate_to_file.py` as an example of how to write the
-generated examples to text files. You can use this directly, or adapt it for
-your generation and training needs.
+### Writing to files
+
+We've also included `generate_to_file.py` to write generated examples to files.
+It supports both the original text format and JSON format compatible with 
+Hugging Face datasets.
+
+**Text format (original):**
+```shell
+python -m mathematics_dataset.generate_to_file --output_dir=./dataset_text
+```
+
+**JSON format (Hugging Face compatible):**
+```shell
+# Separate JSONL files per difficulty level
+python -m mathematics_dataset.generate_to_file --output_dir=./dataset_json --format=json
+
+# Single combined JSONL file
+python -m mathematics_dataset.generate_to_file --output_dir=./dataset_json --format=json --single_file=True
+```
+
+**JSON output format:**
+Each line in the JSONL files contains:
+```json
+{"input": "Solve -42*r + 27*c = -1167 and 130*r + 4*c = 372 for r.", "output": "4", "difficulty": "interpolate", "module": "algebra__linear_1d"}
+```
+
+This format can be directly used with Hugging Face's `datasets` library:
+```python
+from datasets import load_dataset
+dataset = load_dataset("json", data_files="interpolate.jsonl")
+```
+
+**Additional options:**
+- `--per_train_module=N`: Number of examples per training module (default: 10)
+- `--per_test_module=N`: Number of examples per test module (default: 10)  
+- `--filter=pattern`: Generate only modules matching the pattern
+- `--train_split=False`: Don't split training data by difficulty
+
+You can use these scripts directly, or adapt them for your generation and training needs.
 
 ## Dataset Metadata
 The following table is necessary for this dataset to be indexed by search
