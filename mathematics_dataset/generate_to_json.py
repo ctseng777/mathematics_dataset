@@ -66,12 +66,26 @@ def main(unused_argv):
         for module_name, module in six.iteritems(flat_modules):
           for _ in range(per_module):
             problem, _ = generate.sample_from_module(module)
-            example = {
-              'input': str(problem.question),
-              'output': str(problem.answer),
-              'difficulty': regime,
-              'module': module_name
-            }
+            
+            # Check if it's a StreetMathProblem with additional fields
+            if hasattr(problem, 'exact_answer'):
+              example = {
+                'input': str(problem.question),
+                'approximate_answer': str(problem.answer),
+                'exact_answer': str(problem.exact_answer),
+                'lower_bound': str(problem.lower_bound),
+                'upper_bound': str(problem.upper_bound),
+                'solution': problem.solution,
+                'difficulty': regime,
+                'module': module_name
+              }
+            else:
+              example = {
+                'input': str(problem.question),
+                'approximate_answer': str(problem.answer),
+                'difficulty': regime,
+                'module': module_name
+              }
             json_file.write(json.dumps(example) + '\n')
     logging.info('Written %s', output_path)
   else:
@@ -83,12 +97,26 @@ def main(unused_argv):
         for module_name, module in six.iteritems(flat_modules):
           for _ in range(per_module):
             problem, _ = generate.sample_from_module(module)
-            example = {
-              'input': str(problem.question),
-              'output': str(problem.answer),
-              'difficulty': regime,
-              'module': module_name
-            }
+            
+            # Check if it's a StreetMathProblem with additional fields
+            if hasattr(problem, 'exact_answer'):
+              example = {
+                'input': str(problem.question),
+                'output': str(problem.answer),
+                'exact_answer': str(problem.exact_answer),
+                'lower_bound': str(problem.lower_bound),
+                'upper_bound': str(problem.upper_bound),
+                'solution': problem.solution,
+                'difficulty': regime,
+                'module': module_name
+              }
+            else:
+              example = {
+                'input': str(problem.question),
+                'output': str(problem.answer),
+                'difficulty': regime,
+                'module': module_name
+              }
             json_file.write(json.dumps(example) + '\n')
       logging.info('Written %s', output_path)
 

@@ -26,6 +26,7 @@ from mathematics_dataset.modules import measurement
 from mathematics_dataset.modules import numbers
 from mathematics_dataset.modules import polynomials
 from mathematics_dataset.modules import probability
+from mathematics_dataset.modules import street_math
 import six
 
 
@@ -38,6 +39,7 @@ all_ = {
     'numbers': numbers,
     'polynomials': polynomials,
     'probability': probability,
+    'street_math': street_math,
 }
 
 
