@@ -1,0 +1,46 @@
+{
+  "dataset_name": "street_math_approximation",
+  "description": "A dataset for training models on mental math approximation and reasoning",
+  "version": "1.0.0",
+  "features": {
+    "input": {
+      "dtype": "string",
+      "description": "The mental math question"
+    },
+    "output": {
+      "dtype": "string", 
+      "description": "The approximate answer for mental math"
+    },
+    "exact_answer": {
+      "dtype": "string",
+      "description": "The precise mathematical result"
+    },
+    "lower_bound": {
+      "dtype": "string",
+      "description": "Lower bound of acceptable approximation (within 10%)"
+    },
+    "upper_bound": {
+      "dtype": "string", 
+      "description": "Upper bound of acceptable approximation (within 10%)"
+    },
+    "solution": {
+      "dtype": "string",
+      "description": "Step-by-step educational solution explaining mental math technique"
+    },
+    "difficulty": {
+      "dtype": "string",
+      "description": "Problem difficulty level (easy, medium, hard)"
+    },
+    "module": {
+      "dtype": "string",
+      "description": "Module name (street_math)"
+    }
+  },
+  "splits": {
+    "train": {"num_examples": 3357},
+    "validation": {"num_examples": 719},
+    "test": {"num_examples": 721}
+  },
+  "license": "Apache-2.0",
+  "citation": "Based on DeepMind Mathematics Dataset"
+}
