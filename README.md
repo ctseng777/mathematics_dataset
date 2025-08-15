@@ -8,6 +8,55 @@ Original paper: [Analysing Mathematical
 Reasoning Abilities of Neural Models](https://openreview.net/pdf?id=H1gR5iR5FX)
 (Saxton, Grefenstette, Hill, Kohli).
 
+## Street Math Approximation Dataset
+
+This repository now includes a **Street Math Approximation Dataset** specifically designed for training models on mental math estimation and approximation techniques. The dataset is converted to Alpaca format for instruction tuning.
+
+### Quick Start - Approximation Dataset
+
+To generate the Alpaca-formatted approximation dataset:
+
+```bash
+python combine_dataset.py
+```
+
+This creates the `street_math_hf_dataset/` directory with:
+- `train.jsonl` - Training split (70%)
+- `validation.jsonl` - Validation split (15%) 
+- `test.jsonl` - Test split (15%)
+- `sample.jsonl` - Sample examples to preview format
+
+### Alpaca Format Structure
+
+Each example follows the Alpaca instruction format:
+
+```json
+{
+  "instruction": "Estimate the following calculation using basic mental math and rounding techniques. Provide your approximation and briefly explain your rounding strategy.",
+  "input": "22 * -394",
+  "output": "**Approximation: -8700**\n\n**Method:**\n- **Round 22** to **20** (easier to multiply)\n- **Round -394** to **-400** (round number)\n\n**Reasoning:**\nThis estimation method provides a quick, practical approximation by rounding to the nearest convenient numbers for mental calculation.",
+  "metadata": {
+    "exact_answer": "-8668.0",
+    "lower_bound": "-9535.0", 
+    "upper_bound": "-7801.0",
+    "difficulty": "train-easy",
+    "module": "street_math__mul"
+  }
+}
+```
+
+### Using with Axolotl
+
+This dataset is optimized for training with [Axolotl](https://docs.axolotl.ai/docs/dataset-formats/inst_tune.html) using the `alpaca` format. Simply point your Axolotl config to the generated JSONL files.
+
+### Dataset Focus
+
+The approximation dataset emphasizes:
+- **Mental math techniques** - Rounding strategies for quick estimation
+- **Practical approximation** - Real-world estimation skills
+- **Reasoning explanation** - Understanding why approximations work
+- **Bounded evaluation** - Answers within reasonable tolerance ranges are considered correct
+
 ## Example questions
 
 ```
